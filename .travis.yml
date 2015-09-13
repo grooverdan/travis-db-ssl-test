@@ -6,6 +6,8 @@ service:
 
 matrix:
     include:
+        - env:
+             - JUSTMSQL=true
         - addons:
              mariadb: 5.5
         - addons:
@@ -20,6 +22,7 @@ before_install:
     - sudo install -t /etc/mysql/conf.d ssl.cnf
 
 install:
+    - find /etc/mysql -ls
     - pushd /etc/mysql/ssl && make
     - sudo service mysql restart
     - popd
