@@ -16,7 +16,6 @@ matrix:
              mariadb: 10.1
 
 before_install:
-    - sudo rm /var/log/syslog
     - if [ -n "${JUSTMYSQL}" ]; then
           sudo apt-get update;
       fi
