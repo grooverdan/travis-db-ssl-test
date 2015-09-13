@@ -20,7 +20,7 @@ before_install:
     - sudo install -t /etc/mysql/conf.d ssl.cnf
 
 install:
-    - pushd /etc/mysqld/ssl && make
+    - pushd /etc/mysql/ssl && make
     - sudo service mysql restart
     - popd
     - mysql -u root < grant.sql
