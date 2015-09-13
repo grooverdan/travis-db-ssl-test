@@ -38,4 +38,7 @@ install:
 script:
     - mysql --defaults-group-suffix=.ssh -ptravis_ssl -e "show global status like '%ssl'"
     - mysql --defaults-group-suffix=.ssh -ptravis_ssl -e "\s"
-    - mysql --ssl-ca /etc/mysql/ssl/ca.crt --ssl-key=/etc/mysql/ssl/client.key --ssl-cert=/etc/mysql/ssl/client.crt --user=travis_ssl -ptravis_sse -e "\s"
+    - mysql --ssl-ca /etc/mysql/ssl/ca.crt --ssl-key=/etc/mysql/ssl/client.key --ssl-cert=/etc/mysql/ssl/client.crt --user=travis_ssl -ptravis_ssl -e "\s"
+
+after_failure:
+    - sudo cat /var/log/syslog
