@@ -27,8 +27,10 @@ install:
     - find /etc/mysql -ls
     - sudo service mysql restart
     - popd
+    - sudo cat /var/log/syslog
     - mysql -u root < grant.sql
 
 script:
     - mysql --defaults-group-suffix=.ssh -e "show global status like '%ssl'"
     - mysql --defaults-group-suffix=.ssh -e "\s"
+    - mysql --ssl-ca /etc/mysql/ssl/ca.crt --ssl-key=/etc/mysql/ssl/client.key --ssl-cert=/etc/mysql/ssl/client.crt --user=travis_ssl -e "\s"
