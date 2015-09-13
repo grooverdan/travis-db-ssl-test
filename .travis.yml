@@ -24,9 +24,11 @@ before_install:
 install:
     - find /etc/mysql -ls
     - pushd /etc/mysql/ssl && make
+    - find /etc/mysql -ls
     - sudo service mysql restart
     - popd
     - mysql -u root < grant.sql
 
 script:
     - mysql --defaults-group-suffix=.ssh -e "show global status like '%ssl'"
+    - mysql --defaults-group-suffix=.ssh -e "\s"
