@@ -1,0 +1,26 @@
+sudo: required
+language: python
+python: "3.4"
+
+matrix:
+    include:
+        - addons:
+             mariadb: 5.5
+        - addons:
+             mariadb: 10.0
+        - addons:
+             mariadb: 10.1
+
+before_install:
+    - sudo apt-get install gnutls-bin
+    - sudo install --owner travis -d /etc/mysql/ssl
+    - sudo install --owner travis -t /etc/mysql/ssl Makefile
+    - sudo install -t /etc/mysql/conf.d server.cnf
+
+install:
+    - cd /etc/mysqld/ssl && make
+    - sudo service mysql restart
+    - mysql -u root < grant.sql
+
+script:
+    - mysql -u travis_ssl -e '
