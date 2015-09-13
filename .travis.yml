@@ -1,6 +1,8 @@
 sudo: required
-language: python
-python: "3.4"
+language: c
+
+service:
+    - mysql
 
 matrix:
     include:
@@ -15,12 +17,13 @@ before_install:
     - sudo apt-get install gnutls-bin
     - sudo install --owner travis -d /etc/mysql/ssl
     - sudo install --owner travis -t /etc/mysql/ssl Makefile
-    - sudo install -t /etc/mysql/conf.d server.cnf
+    - sudo install -t /etc/mysql/conf.d ssl.cnf
 
 install:
-    - cd /etc/mysqld/ssl && make
+    - pushd /etc/mysqld/ssl && make
     - sudo service mysql restart
+    - popd
     - mysql -u root < grant.sql
 
 script:
-    - mysql -u travis_ssl -e '
+    - mysql --defaults-group-suffix=.ssh -e "show global status like '%ssl'"
