@@ -16,6 +16,9 @@ matrix:
              mariadb: 10.1
 
 before_install:
+    - if [ -n "${JUSTMYSQL}" ]; then
+          sudo apt-get update;
+      fi
     - sudo apt-get install gnutls-bin
     - sudo install --owner ${USER} -d /etc/mysql/ssl
     - sudo install --owner ${USER} -t /etc/mysql/ssl Makefile *.tmpl
@@ -31,6 +34,6 @@ install:
     - mysql -u root < grant.sql
 
 script:
-    - mysql --defaults-group-suffix=.ssh -e "show global status like '%ssl'"
-    - mysql --defaults-group-suffix=.ssh -e "\s"
-    - mysql --ssl-ca /etc/mysql/ssl/ca.crt --ssl-key=/etc/mysql/ssl/client.key --ssl-cert=/etc/mysql/ssl/client.crt --user=travis_ssl -e "\s"
+    - mysql --defaults-group-suffix=.ssh -ptravis_ssl -e "show global status like '%ssl'"
+    - mysql --defaults-group-suffix=.ssh -ptravis_ssl -e "\s"
+    - mysql --ssl-ca /etc/mysql/ssl/ca.crt --ssl-key=/etc/mysql/ssl/client.key --ssl-cert=/etc/mysql/ssl/client.crt --user=travis_ssl -ptravis_sse -e "\s"
