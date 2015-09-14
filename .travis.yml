@@ -30,6 +30,7 @@ install:
     - find /etc/mysql -ls
     - cat /etc/mysql/my.cnf
     - openssl x509 -in /etc/mysql/ssl/client.crt -issuer -subject -noout
+    - certtool  -i  --infile /etc/mysql/ssl/client.crt
     - sudo service mysql restart
     - popd
     - sudo cat /var/log/syslog
@@ -40,7 +41,7 @@ script:
     - mysql --defaults-group-suffix=.ssl -e "\s"
     - mysql --defaults-group-suffix=.ssl -u travis_ssl_i -e "\s"
     - mysql --defaults-group-suffix=.ssl -u travis_ssl_s -e "\s"
-    - mysql --ssl-ca /etc/mysql/ssl/ca.crt --ssl-key=/etc/mysql/ssl/client.key --ssl-cert=/etc/mysql/ssl/client.crt --user=travis_ssl -ptravis_ssl -e "\s"
+    - mysql --ssl --ssl-ca /etc/mysql/ssl/ca.crt --ssl-key=/etc/mysql/ssl/client.key --ssl-cert=/etc/mysql/ssl/client.crt --user=travis_ssl -ptravis_ssl -e "\s"
 
 after_failure:
     - sudo cat /var/log/syslog
