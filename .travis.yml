@@ -38,8 +38,8 @@ install:
 script:
     - mysql --defaults-group-suffix=.ssl -e "show global status like '%ssl'"
     - mysql --defaults-group-suffix=.ssl -e "\s"
-    - mysql --defaults-group-suffix=.ssl -u travis_ssl_issuer -e "\s"
-    - mysql --defaults-group-suffix=.ssl -u travis_ssl_subject -e "\s"
+    - mysql --defaults-group-suffix=.ssl -u travis_ssl_i -e "\s"
+    - mysql --defaults-group-suffix=.ssl -u travis_ssl_s -e "\s"
     - mysql --ssl-ca /etc/mysql/ssl/ca.crt --ssl-key=/etc/mysql/ssl/client.key --ssl-cert=/etc/mysql/ssl/client.crt --user=travis_ssl -ptravis_ssl -e "\s"
 
 after_failure:
