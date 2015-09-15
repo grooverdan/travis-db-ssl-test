@@ -2,6 +2,7 @@
 # follows https://help.ubuntu.com/community/GnuTLS roughly sort of
 
 all: server.crt client.crt
+			chmod ugo+r client.crt client.key
 
 %.key:
 		  certtool --generate-privkey --outfile $@
