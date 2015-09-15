@@ -20,8 +20,8 @@ before_install:
           sudo apt-get update;
       fi
     - sudo apt-get install gnutls-bin
-    - sudo install --owner ${USER} -d /etc/mysql/ssl
-    - sudo install --owner ${USER} -t /etc/mysql/ssl Makefile *.tmpl
+    - sudo install --owner mysql -d /etc/mysql/ssl
+    - sudo install --owner mysql -t /etc/mysql/ssl Makefile *.tmpl
     - sudo install -t /etc/mysql/conf.d ssl.cnf
 
 install:
