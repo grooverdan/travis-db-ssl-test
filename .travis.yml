@@ -35,7 +35,7 @@ install:
     - popd
     - sudo cat /var/log/syslog
     - mysql -u root < grant.sql
-    - mysql -u root -e "set global log_warnings=2; drop user ''@localhost"
+    - mysql -u root -e "set global log_warnings=2"
 
 script:
     - mysql --defaults-group-suffix=.ssl -e "\sselect current_user(),user();show grants"
