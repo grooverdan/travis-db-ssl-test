@@ -27,7 +27,7 @@ before_install:
 install:
     - find /etc/mysql -ls
     - pushd /etc/mysql/ssl && sudo -u mysql make
-    - sudo chown ${USER}: /etc/mysql/ssl/client*
+    - sudo chown ${USER}: /etc/mysql/ssl/client.{key,crt}
     - find /etc/mysql -ls
     - cat /etc/mysql/my.cnf
     - openssl x509 -in /etc/mysql/ssl/client.crt -issuer -subject -noout
