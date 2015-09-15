@@ -8,7 +8,7 @@ ssl-cert = /etc/mysql/ssl/server.crt
 [client.ssl]
 
 user = travis_ssl
-password =  travis_ssl
+password =  pass
 ssl
 ssl-verify-server-cert
 ssl-ca = /etc/mysql/ssl/ca.crt

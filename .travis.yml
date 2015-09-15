@@ -35,13 +35,11 @@ install:
     - popd
     - sudo cat /var/log/syslog
     - mysql -u root < grant.sql
+    - mysql -u root -e "set global log_warnings=2; drop user ''@localhost"
 
 script:
-    - mysql --defaults-group-suffix=.ssl -e "show global status like '%ssl'"
-    - mysql --defaults-group-suffix=.ssl -e "\s"
-    - mysql --defaults-group-suffix=.ssl -u travis_ssl_i -e "\s"
-    - mysql --defaults-group-suffix=.ssl -u travis_ssl_s -e "\s"
-    - mysql --ssl --ssl-ca /etc/mysql/ssl/ca.crt --ssl-key=/etc/mysql/ssl/client.key --ssl-cert=/etc/mysql/ssl/client.crt --user=travis_ssl -ptravis_ssl -e "\s"
+    - mysql --defaults-group-suffix=.ssl -e "\sselect current_user(),user();show grants"
+    - mysql --ssl --ssl-verify-server-cert --ssl-ca /etc/mysql/ssl/ca.crt --ssl-key=/etc/mysql/ssl/client.key --ssl-cert=/etc/mysql/ssl/client.crt --user=travis_ssl -ppass -e "\sselect current_user(),user();show grants"
 
 after_failure:
     - sudo cat /var/log/syslog
