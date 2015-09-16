@@ -30,8 +30,8 @@ install:
     - cat /etc/mysql/my.cnf
     - date
     - openssl x509 -in /etc/mysql/ssl/client.crt -issuer -subject -noout
-    - certtool  -i  --infile /etc/mysql/ssl/client.crt
-    - sudo service mysql restart
+    - certtool -i --infile /etc/mysql/ssl/client.crt
+    - sudo initctl restart mysql
     - popd
     - sudo cat /var/log/syslog
     - mysql -u root < grant.sql
