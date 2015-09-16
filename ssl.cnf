@@ -1,6 +1,7 @@
 
 [mysqld]
 
+ssl
 ssl-ca = /etc/mysql/ssl/ca.crt
 ssl-key = /etc/mysql/ssl/server.key
 ssl-cert = /etc/mysql/ssl/server.crt
