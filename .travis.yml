@@ -39,6 +39,7 @@ install:
 
 script:
 # delay before use - got error ERROR 2026 (HY000): SSL connection error: ASN: before date in the future
+# template activate date not supported in certtool of precise
     - sleep 60
     - mysql --defaults-group-suffix=.ssl -e "\sselect current_user(),user();show grants"
     - mysql --ssl --ssl-verify-server-cert --ssl-ca /etc/mysql/ssl/ca.crt --ssl-key=/etc/mysql/ssl/client.key --ssl-cert=/etc/mysql/ssl/client.crt --user=travis_ssl -ppass -e "\sselect current_user(),user();show grants"
