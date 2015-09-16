@@ -31,6 +31,8 @@ install:
     - date
     - openssl x509 -in /etc/mysql/ssl/client.crt -issuer -subject -noout
     - certtool -i --infile /etc/mysql/ssl/client.crt
+    - mysql -u root 'shutdown;' || true
+    - sleep 10
     - sudo initctl restart mysql
     - popd
     - sudo cat /var/log/syslog
