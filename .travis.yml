@@ -28,15 +28,18 @@ install:
     - pushd /etc/mysql/ssl && sudo -u mysql make
     - find /etc/mysql -ls
     - cat /etc/mysql/my.cnf
+    - date
     - openssl x509 -in /etc/mysql/ssl/client.crt -issuer -subject -noout
     - certtool  -i  --infile /etc/mysql/ssl/client.crt
     - sudo service mysql restart
     - popd
     - sudo cat /var/log/syslog
     - mysql -u root < grant.sql
-    - mysql -u root -e "set global log_warnings=2"
+    - mysql -u root -e "set global log_warnings=2; show global variables like '%ssl%'"
 
 script:
+# delay before use - got error ERROR 2026 (HY000): SSL connection error: ASN: before date in the future
+    - sleep 60
     - mysql --defaults-group-suffix=.ssl -e "\sselect current_user(),user();show grants"
     - mysql --ssl --ssl-verify-server-cert --ssl-ca /etc/mysql/ssl/ca.crt --ssl-key=/etc/mysql/ssl/client.key --ssl-cert=/etc/mysql/ssl/client.crt --user=travis_ssl -ppass -e "\sselect current_user(),user();show grants"
 
